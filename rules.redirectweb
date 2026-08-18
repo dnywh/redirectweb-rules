@@ -1,0 +1,611 @@
+{
+  "kind": "RedirectList",
+  "bundleID": "io.github.mshibanami.RedirectWebForSafari",
+  "formatVersion": "5",
+  "redirects": [
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill X root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?x\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://x.com/",
+        "https://www.x.com",
+        "https://x.com/?lang=en"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Twitter root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitter\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitter.com/",
+        "https://www.twitter.com"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill X /home",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?x\\.com/home/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://x.com/home",
+        "https://www.x.com/home"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Twitter /home",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitter\\.com/home/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitter.com/home"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill X /explore",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?x\\.com/explore/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://x.com/explore"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Twitter /explore",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitter\\.com/explore/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitter.com/explore"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill xcancel root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?xcancel\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://xcancel.com/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill xcancel /home",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?xcancel\\.com/home/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://xcancel.com/home"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill xcancel /explore",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?xcancel\\.com/explore/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://xcancel.com/explore"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Reddit root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?reddit\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.reddit.com/",
+        "https://reddit.com"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Reddit /r/all",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?reddit\\.com/r/all/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.reddit.com/r/all"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Reddit /r/popular",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?reddit\\.com/r/popular/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.reddit.com/r/popular"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Safereddit root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?safereddit\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://safereddit.com/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Safereddit /r/all",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?safereddit\\.com/r/all/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://safereddit.com/r/all"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Safereddit /r/popular",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?safereddit\\.com/r/popular/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://safereddit.com/r/popular"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "X to xcancel.com",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?x\\.com/(.*)$"
+      },
+      "destinationURLPattern": "https://xcancel.com/$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://x.com/user/status/123",
+        "https://www.x.com/user/status/123"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Twitter to xcancel.com",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitter\\.com/(.*)$"
+      },
+      "destinationURLPattern": "https://xcancel.com/$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitter.com/search?q=hi",
+        "https://www.twitter.com/search?q=hi"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Reddit to safereddit.com",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?reddit\\.com/(.*)$"
+      },
+      "destinationURLPattern": "https://safereddit.com/$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.reddit.com/r/apple/comments/abc",
+        "https://reddit.com/r/apple"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "old Reddit to safereddit.com",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?old\\.reddit\\.com/(.*)$"
+      },
+      "destinationURLPattern": "https://safereddit.com/$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://old.reddit.com/r/apple"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "new Reddit to safereddit.com",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?new\\.reddit\\.com/(.*)$"
+      },
+      "destinationURLPattern": "https://safereddit.com/$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://new.reddit.com/r/apple"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Threads",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?threads\\.net/.*$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.threads.net/",
+        "https://threads.net/@someone"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Whole-site kill. Add more hosts like this for Instagram, TikTok, and so on.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill threads.com",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?threads\\.com/.*$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.threads.com/",
+        "https://threads.com/@someone"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Whole-site kill. Add more hosts like this for Instagram, TikTok, and so on.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    }
+  ]
+}
