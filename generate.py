@@ -69,20 +69,50 @@ def rewrite(label: str, host: str, dest_host: str, examples: list[str]) -> dict:
     )
 
 
-def tweet_to_viewer(label: str, host: str, examples: list[str]) -> dict:
-    return rule(
-        title=f"{label} status to Twitter Web Viewer",
-        pattern=(
-            rf"^https://(?:www\.)?{esc(host)}/"
-            rf"(?:[^/]+/status/|i/status/|i/web/status/)(\d+)(?:[\?#].*)?$"
+def tweet_to_viewer_rules(label: str, host: str) -> list[dict]:
+    """Safari DNR rejects `|` in regex, so each status URL shape gets its own rule."""
+    shapes = [
+        (
+            "user status",
+            rf"^https://(?:www\.)?{esc(host)}/[^/]+/status/(\d+)(?:[\?#].*)?$",
+            [
+                "https://x.com/resend/status/2091897900800635319?s=20"
+                if host == "x.com"
+                else "https://twitter.com/resend/status/2091897900800635319?s=20",
+            ],
         ),
-        dest="https://twitterwebviewer.com/?tweet=$1",
-        examples=examples,
-        comments=(
-            "Extracts the numeric tweet id from status URLs. "
-            "Query strings like `?s=20` are dropped on purpose."
+        (
+            "i/status",
+            rf"^https://(?:www\.)?{esc(host)}/i/status/(\d+)(?:[\?#].*)?$",
+            [
+                "https://x.com/i/status/123"
+                if host == "x.com"
+                else "https://twitter.com/i/status/123",
+            ],
         ),
-    )
+        (
+            "i/web/status",
+            rf"^https://(?:www\.)?{esc(host)}/i/web/status/(\d+)(?:[\?#].*)?$",
+            [
+                "https://x.com/i/web/status/123"
+                if host == "x.com"
+                else "https://twitter.com/i/web/status/123",
+            ],
+        ),
+    ]
+    return [
+        rule(
+            title=f"{label} {shape} to Twitter Web Viewer",
+            pattern=pattern,
+            dest="https://twitterwebviewer.com/?tweet=$1",
+            examples=examples,
+            comments=(
+                "No `|` in the regex: Safari DNR rejects pipes (FB13251357). "
+                "Query strings like `?s=20` are dropped on purpose."
+            ),
+        )
+        for shape, pattern, examples in shapes
+    ]
 
 
 def kill_remaining(label: str, host: str, examples: list[str]) -> dict:
@@ -113,23 +143,8 @@ def main() -> None:
         kill_path("Twitter", "twitter.com", "home", ["https://twitter.com/home"]),
         kill_path("X", "x.com", "explore", ["https://x.com/explore"]),
         kill_path("Twitter", "twitter.com", "explore", ["https://twitter.com/explore"]),
-        tweet_to_viewer(
-            "X",
-            "x.com",
-            [
-                "https://x.com/resend/status/2091897900800635319?s=20",
-                "https://www.x.com/user/status/123",
-                "https://x.com/i/status/123",
-            ],
-        ),
-        tweet_to_viewer(
-            "Twitter",
-            "twitter.com",
-            [
-                "https://twitter.com/resend/status/2091897900800635319?s=20",
-                "https://www.twitter.com/user/status/123",
-            ],
-        ),
+        *tweet_to_viewer_rules("X", "x.com"),
+        *tweet_to_viewer_rules("Twitter", "twitter.com"),
         kill_remaining("X", "x.com", ["https://x.com/resend", "https://x.com/search?q=hi"]),
         kill_remaining(
             "Twitter",

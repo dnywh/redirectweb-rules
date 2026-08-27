@@ -2,7 +2,9 @@
 
 Kill homepages and feeds, rewrite X tweet links to Twitter Web Viewer, rewrite Reddit to Safereddit, block Threads. Landing pad is `https://example.com/` (a reserved, boring page).
 
-RedirectWeb matches **top of the list first**. Kills come before rewrites.
+RedirectWeb matches **top of the list first**. The first rule that matches wins; nothing below it runs for that URL. Order matters.
+
+Safari DNR **rejects `|` in regex** (FB13251357). Rules with pipes are ignored or broken, so the next matching rule (often a catch-all kill) wins instead.
 
 ## Import
 
@@ -48,6 +50,7 @@ Do not write `(www.)?`. That captures `www.` as `$1` and breaks rewrites.
 Safari DNR rejects `|` in regex, so these stay as separate rules:
 
 - `x.com` and `twitter.com`
+- Each tweet URL shape (`user/status`, `i/status`, `i/web/status`) on its own
 - `threads.net` and `threads.com`
 - `reddit.com`, `old.reddit.com`, and `new.reddit.com`
 
