@@ -101,7 +101,7 @@ def kill_host(label: str, host: str, examples: list[str]) -> dict:
         pattern=rf"^https://(?:www\.)?{esc(host)}/.*$",
         dest=KILL,
         examples=examples,
-        comments="Whole-site kill. Add more hosts like this for Instagram, TikTok, and so on.",
+        comments="Whole-site kill. Add more hosts like this for TikTok and so on.",
     )
 
 
@@ -141,6 +141,14 @@ def main() -> None:
             "twitterwebviewer.com",
             ["https://twitterwebviewer.com/", "https://www.twitterwebviewer.com/"],
         ),
+        kill_root("Facebook", "facebook.com", ["https://www.facebook.com/", "https://facebook.com/"]),
+        kill_path("Facebook", "facebook.com", "home", ["https://www.facebook.com/home"]),
+        kill_root("Facebook mobile", "m.facebook.com", ["https://m.facebook.com/"]),
+        kill_path("Facebook mobile", "m.facebook.com", "home", ["https://m.facebook.com/home"]),
+        kill_root("Instagram", "instagram.com", ["https://www.instagram.com/", "https://instagram.com/"]),
+        kill_path("Instagram", "instagram.com", "explore", ["https://www.instagram.com/explore/"]),
+        kill_path("Instagram", "instagram.com", "reels", ["https://www.instagram.com/reels/"]),
+        kill_root("Instagram mobile", "m.instagram.com", ["https://m.instagram.com/"]),
         kill_root("Reddit", "reddit.com", ["https://www.reddit.com/", "https://reddit.com"]),
         kill_path("Reddit", "reddit.com", "r/all", ["https://www.reddit.com/r/all"]),
         kill_path("Reddit", "reddit.com", "r/popular", ["https://www.reddit.com/r/popular"]),

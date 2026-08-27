@@ -313,6 +313,224 @@
     {
       "kind": "Redirect",
       "type": "declarativeNetRequestRedirect",
+      "title": "Kill Facebook root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?facebook\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.facebook.com/",
+        "https://facebook.com/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Facebook /home",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?facebook\\.com/home/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.facebook.com/home"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Facebook mobile root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?m\\.facebook\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://m.facebook.com/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Facebook mobile /home",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?m\\.facebook\\.com/home/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://m.facebook.com/home"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Instagram root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?instagram\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.instagram.com/",
+        "https://instagram.com/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Instagram /explore",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?instagram\\.com/explore/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.instagram.com/explore/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Instagram /reels",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?instagram\\.com/reels/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://www.instagram.com/reels/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Instagram mobile root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?m\\.instagram\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://m.instagram.com/"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
       "title": "Kill Reddit root",
       "isEnabled": true,
       "sourceURLPattern": {
@@ -574,7 +792,7 @@
       ],
       "excludeURLPatterns": [],
       "captureGroupProcesses": [],
-      "comments": "Whole-site kill. Add more hosts like this for Instagram, TikTok, and so on.",
+      "comments": "Whole-site kill. Add more hosts like this for TikTok and so on.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -602,7 +820,7 @@
       ],
       "excludeURLPatterns": [],
       "captureGroupProcesses": [],
-      "comments": "Whole-site kill. Add more hosts like this for Instagram, TikTok, and so on.",
+      "comments": "Whole-site kill. Add more hosts like this for TikTok and so on.",
       "commentsOptions": {
         "format": "markdown"
       },

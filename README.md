@@ -57,7 +57,8 @@ Safari DNR rejects `|` in regex, so these stay as separate rules:
 2. **Rewrite status URLs** on X and Twitter to `https://twitterwebviewer.com/?tweet=ID` (drops query strings like `?s=20`).
 3. **Kill other X/Twitter URLs** (profiles, search, and anything that is not a status link).
 4. **Kill Twitter Web Viewer root** so you cannot open the viewer homepage and scroll.
-5. **Reddit** unchanged: kill roots/feeds, rewrite deep links to Safereddit.
-6. **Kill** all of `threads.net` and `threads.com`.
+5. **Facebook and Instagram:** kill homepage and feed tabs only. Direct links to posts, reels, groups, and so on still load.
+6. **Reddit** unchanged: kill roots/feeds, rewrite deep links to Safereddit.
+7. **Kill** all of `threads.net` and `threads.com`.
 
 Add another whole-site block by copying a Threads rule in `generate.py` (`kill_host(...)`).
