@@ -172,76 +172,136 @@
     {
       "kind": "Redirect",
       "type": "declarativeNetRequestRedirect",
-      "title": "Kill xcancel root",
+      "title": "X status to Twitter Web Viewer",
       "isEnabled": true,
       "sourceURLPattern": {
         "type": "regularExpression",
-        "value": "^https://(?:www\\.)?xcancel\\.com/?([\\?#].*)?$"
+        "value": "^https://(?:www\\.)?x\\.com/(?:[^/]+/status/|i/status/|i/web/status/)(\\d+)(?:[\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://x.com/resend/status/2091897900800635319?s=20",
+        "https://www.x.com/user/status/123",
+        "https://x.com/i/status/123"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Extracts the numeric tweet id from status URLs. Query strings like `?s=20` are dropped on purpose.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Twitter status to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitter\\.com/(?:[^/]+/status/|i/status/|i/web/status/)(\\d+)(?:[\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitter.com/resend/status/2091897900800635319?s=20",
+        "https://www.twitter.com/user/status/123"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Extracts the numeric tweet id from status URLs. Query strings like `?s=20` are dropped on purpose.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill other X URLs",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?x\\.com/.*$"
       },
       "destinationURLPattern": "https://example.com/",
       "resourceTypes": [
         "main_frame"
       ],
       "exampleURLs": [
-        "https://xcancel.com/"
+        "https://x.com/resend",
+        "https://x.com/search?q=hi"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Profiles, search, and other non-status X URLs. Put this after the status rewrite.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill other Twitter URLs",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitter\\.com/.*$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitter.com/resend",
+        "https://twitter.com/search?q=hi"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [],
+      "comments": "Profiles, search, and other non-status X URLs. Put this after the status rewrite.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "declarativeNetRequestRedirect",
+      "title": "Kill Twitter Web Viewer root",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "regularExpression",
+        "value": "^https://(?:www\\.)?twitterwebviewer\\.com/?([\\?#].*)?$"
+      },
+      "destinationURLPattern": "https://example.com/",
+      "resourceTypes": [
+        "main_frame"
+      ],
+      "exampleURLs": [
+        "https://twitterwebviewer.com/",
+        "https://www.twitterwebviewer.com/"
       ],
       "excludeURLPatterns": [],
       "captureGroupProcesses": [],
       "comments": "Matches with and without www. Safari DNR cannot use `|`, so different hosts stay as separate rules.",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "Kill xcancel /home",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?xcancel\\.com/home/?([\\?#].*)?$"
-      },
-      "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://xcancel.com/home"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "Kill xcancel /explore",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?xcancel\\.com/explore/?([\\?#].*)?$"
-      },
-      "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://xcancel.com/explore"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -405,62 +465,6 @@
       "excludeURLPatterns": [],
       "captureGroupProcesses": [],
       "comments": "",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "X to xcancel.com",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?x\\.com/(.*)$"
-      },
-      "destinationURLPattern": "https://xcancel.com/$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://x.com/user/status/123",
-        "https://www.x.com/user/status/123"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "Twitter to xcancel.com",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?twitter\\.com/(.*)$"
-      },
-      "destinationURLPattern": "https://xcancel.com/$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://twitter.com/search?q=hi",
-        "https://www.twitter.com/search?q=hi"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "`(?:www.)?` is non-capturing, so `$1` is the path. Do not use `(www.)?` or `$1` becomes `www.`.",
       "commentsOptions": {
         "format": "markdown"
       },

@@ -69,6 +69,32 @@ def rewrite(label: str, host: str, dest_host: str, examples: list[str]) -> dict:
     )
 
 
+def tweet_to_viewer(label: str, host: str, examples: list[str]) -> dict:
+    return rule(
+        title=f"{label} status to Twitter Web Viewer",
+        pattern=(
+            rf"^https://(?:www\.)?{esc(host)}/"
+            rf"(?:[^/]+/status/|i/status/|i/web/status/)(\d+)(?:[\?#].*)?$"
+        ),
+        dest="https://twitterwebviewer.com/?tweet=$1",
+        examples=examples,
+        comments=(
+            "Extracts the numeric tweet id from status URLs. "
+            "Query strings like `?s=20` are dropped on purpose."
+        ),
+    )
+
+
+def kill_remaining(label: str, host: str, examples: list[str]) -> dict:
+    return rule(
+        title=f"Kill other {label} URLs",
+        pattern=rf"^https://(?:www\.)?{esc(host)}/.*$",
+        dest=KILL,
+        examples=examples,
+        comments="Profiles, search, and other non-status X URLs. Put this after the status rewrite.",
+    )
+
+
 def kill_host(label: str, host: str, examples: list[str]) -> dict:
     return rule(
         title=f"Kill {label}",
@@ -87,27 +113,40 @@ def main() -> None:
         kill_path("Twitter", "twitter.com", "home", ["https://twitter.com/home"]),
         kill_path("X", "x.com", "explore", ["https://x.com/explore"]),
         kill_path("Twitter", "twitter.com", "explore", ["https://twitter.com/explore"]),
-        kill_root("xcancel", "xcancel.com", ["https://xcancel.com/"]),
-        kill_path("xcancel", "xcancel.com", "home", ["https://xcancel.com/home"]),
-        kill_path("xcancel", "xcancel.com", "explore", ["https://xcancel.com/explore"]),
+        tweet_to_viewer(
+            "X",
+            "x.com",
+            [
+                "https://x.com/resend/status/2091897900800635319?s=20",
+                "https://www.x.com/user/status/123",
+                "https://x.com/i/status/123",
+            ],
+        ),
+        tweet_to_viewer(
+            "Twitter",
+            "twitter.com",
+            [
+                "https://twitter.com/resend/status/2091897900800635319?s=20",
+                "https://www.twitter.com/user/status/123",
+            ],
+        ),
+        kill_remaining("X", "x.com", ["https://x.com/resend", "https://x.com/search?q=hi"]),
+        kill_remaining(
+            "Twitter",
+            "twitter.com",
+            ["https://twitter.com/resend", "https://twitter.com/search?q=hi"],
+        ),
+        kill_root(
+            "Twitter Web Viewer",
+            "twitterwebviewer.com",
+            ["https://twitterwebviewer.com/", "https://www.twitterwebviewer.com/"],
+        ),
         kill_root("Reddit", "reddit.com", ["https://www.reddit.com/", "https://reddit.com"]),
         kill_path("Reddit", "reddit.com", "r/all", ["https://www.reddit.com/r/all"]),
         kill_path("Reddit", "reddit.com", "r/popular", ["https://www.reddit.com/r/popular"]),
         kill_root("Safereddit", "safereddit.com", ["https://safereddit.com/"]),
         kill_path("Safereddit", "safereddit.com", "r/all", ["https://safereddit.com/r/all"]),
         kill_path("Safereddit", "safereddit.com", "r/popular", ["https://safereddit.com/r/popular"]),
-        rewrite(
-            "X",
-            "x.com",
-            "xcancel.com",
-            ["https://x.com/user/status/123", "https://www.x.com/user/status/123"],
-        ),
-        rewrite(
-            "Twitter",
-            "twitter.com",
-            "xcancel.com",
-            ["https://twitter.com/search?q=hi", "https://www.twitter.com/search?q=hi"],
-        ),
         rewrite(
             "Reddit",
             "reddit.com",
