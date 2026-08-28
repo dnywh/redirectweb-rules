@@ -2,9 +2,9 @@
 
 Kill homepages and feeds, rewrite X tweet links to Twitter Web Viewer, rewrite Reddit to Safereddit, block Threads. Landing pad is `https://example.com/` (a reserved, boring page).
 
-RedirectWeb matches **top of the list first**. The first rule that matches wins; nothing below it runs for that URL. Order matters.
+RedirectWeb matches **top of the list first**. The first rule that matches wins.
 
-Safari DNR **rejects `|` in regex** (FB13251357). Rules with pipes are ignored or broken, so the next matching rule (often a catch-all kill) wins instead.
+**DNR vs Original:** Homepage kills use DNR (fast). X/Twitter tweet rewrites and the "kill other URLs" catch-all use **Original** type. Safari DNR is unreliable for regex redirects and rejects `|` in patterns (FB13251357). A DNR catch-all was sending status links to example.com when the DNR tweet rule failed to match.
 
 ## Import
 
@@ -19,7 +19,7 @@ After import:
 
 - Turn off the same redirects in StopTheMadness Pro.
 - In Safari, allow RedirectWeb on All Websites, including Private Browsing.
-- Confirm Type is **DNR**, Resource Types is `main_frame`.
+- Confirm Type is **DNR** for homepage kills, **Original** for tweet viewer rules.
 - If a rule errors in Examples, switch that one to Original (you may get a one-frame flash).
 
 ## Updating rules (important: import duplicates)
@@ -47,18 +47,17 @@ All patterns use `(?:www.)?`, a **non-capturing** group, so both `https://x.com/
 
 Do not write `(www.)?`. That captures `www.` as `$1` and breaks rewrites.
 
-Safari DNR rejects `|` in regex, so these stay as separate rules:
+Safari DNR rejects `|` in regex. Tweet rules use Original type instead. These stay as separate DNR rules:
 
-- `x.com` and `twitter.com`
-- Each tweet URL shape (`user/status`, `i/status`, `i/web/status`) on its own
+- `x.com` and `twitter.com` homepage kills
 - `threads.net` and `threads.com`
 - `reddit.com`, `old.reddit.com`, and `new.reddit.com`
 
 ## What the rules do
 
 1. **Kill roots and feeds** on X and Twitter (`/`, `/home`, `/explore`).
-2. **Rewrite status URLs** on X and Twitter to `https://twitterwebviewer.com/?tweet=ID` (drops query strings like `?s=20`).
-3. **Kill other X/Twitter URLs** (profiles, search, and anything that is not a status link).
+2. **Rewrite status URLs** on X and Twitter to Twitter Web Viewer (Original type).
+3. **Kill other X/Twitter URLs** (Original, with status URLs excluded).
 4. **Kill Twitter Web Viewer root** so you cannot open the viewer homepage and scroll.
 5. **Facebook and Instagram:** kill homepage and feed tabs only. Direct links to posts, reels, groups, and so on still load.
 6. **Reddit** unchanged: kill roots/feeds, rewrite deep links to Safereddit.

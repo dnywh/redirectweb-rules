@@ -13,9 +13,6 @@
         "value": "^https://(?:www\\.)?x\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://x.com/",
         "https://www.x.com",
@@ -30,7 +27,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -42,9 +42,6 @@
         "value": "^https://(?:www\\.)?twitter\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://twitter.com/",
         "https://www.twitter.com"
@@ -58,7 +55,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -70,9 +70,6 @@
         "value": "^https://(?:www\\.)?x\\.com/home/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://x.com/home",
         "https://www.x.com/home"
@@ -86,7 +83,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -98,9 +98,6 @@
         "value": "^https://(?:www\\.)?twitter\\.com/home/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://twitter.com/home"
       ],
@@ -113,7 +110,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -125,9 +125,6 @@
         "value": "^https://(?:www\\.)?x\\.com/explore/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://x.com/explore"
       ],
@@ -140,7 +137,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -152,9 +152,6 @@
         "value": "^https://(?:www\\.)?twitter\\.com/explore/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://twitter.com/explore"
       ],
@@ -167,54 +164,29 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "X user status to Twitter Web Viewer",
+      "type": "originalRedirect",
+      "title": "X status to Twitter Web Viewer",
       "isEnabled": true,
       "sourceURLPattern": {
         "type": "regularExpression",
-        "value": "^https://(?:www\\.)?x\\.com/[^/]+/status/(\\d+)(?:[\\?#].*)?$"
+        "value": "^https://(?:www\\.)?x\\.com/(?:[^/]+/status/|i/status/|i/web/status/)(\\d+)(?:[\\?#].*)?$"
       },
       "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
-        "https://x.com/resend/status/2091897900800635319?s=20"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "No `|` in the regex: Safari DNR rejects pipes (FB13251357). Query strings like `?s=20` are dropped on purpose.",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "X i/status to Twitter Web Viewer",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?x\\.com/i/status/(\\d+)(?:[\\?#].*)?$"
-      },
-      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
+        "https://x.com/resend/status/2091897900800635319?s=20",
+        "https://www.x.com/user/status/123",
         "https://x.com/i/status/123"
       ],
       "excludeURLPatterns": [],
       "captureGroupProcesses": [],
-      "comments": "No `|` in the regex: Safari DNR rejects pipes (FB13251357). Query strings like `?s=20` are dropped on purpose.",
+      "comments": "Original type on purpose. Safari DNR is unreliable for these redirects and rejects `|` in regex (FB13251357). You may see a brief flash of x.com.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -225,23 +197,21 @@
     },
     {
       "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "X i/web/status to Twitter Web Viewer",
+      "type": "originalRedirect",
+      "title": "Twitter status to Twitter Web Viewer",
       "isEnabled": true,
       "sourceURLPattern": {
         "type": "regularExpression",
-        "value": "^https://(?:www\\.)?x\\.com/i/web/status/(\\d+)(?:[\\?#].*)?$"
+        "value": "^https://(?:www\\.)?twitter\\.com/(?:[^/]+/status/|i/status/|i/web/status/)(\\d+)(?:[\\?#].*)?$"
       },
       "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
-        "https://x.com/i/web/status/123"
+        "https://twitter.com/resend/status/2091897900800635319?s=20",
+        "https://www.twitter.com/user/status/123"
       ],
       "excludeURLPatterns": [],
       "captureGroupProcesses": [],
-      "comments": "No `|` in the regex: Safari DNR rejects pipes (FB13251357). Query strings like `?s=20` are dropped on purpose.",
+      "comments": "Original type on purpose. Safari DNR is unreliable for these redirects and rejects `|` in regex (FB13251357). You may see a brief flash of x.com.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -252,88 +222,7 @@
     },
     {
       "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "Twitter user status to Twitter Web Viewer",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?twitter\\.com/[^/]+/status/(\\d+)(?:[\\?#].*)?$"
-      },
-      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://twitter.com/resend/status/2091897900800635319?s=20"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "No `|` in the regex: Safari DNR rejects pipes (FB13251357). Query strings like `?s=20` are dropped on purpose.",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "Twitter i/status to Twitter Web Viewer",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?twitter\\.com/i/status/(\\d+)(?:[\\?#].*)?$"
-      },
-      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://twitter.com/i/status/123"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "No `|` in the regex: Safari DNR rejects pipes (FB13251357). Query strings like `?s=20` are dropped on purpose.",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
-      "title": "Twitter i/web/status to Twitter Web Viewer",
-      "isEnabled": true,
-      "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?twitter\\.com/i/web/status/(\\d+)(?:[\\?#].*)?$"
-      },
-      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
-      "exampleURLs": [
-        "https://twitter.com/i/web/status/123"
-      ],
-      "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "No `|` in the regex: Safari DNR rejects pipes (FB13251357). Query strings like `?s=20` are dropped on purpose.",
-      "commentsOptions": {
-        "format": "markdown"
-      },
-      "targetBrowserOptions": {
-        "browsers": [],
-        "selectionType": "including"
-      }
-    },
-    {
-      "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
+      "type": "originalRedirect",
       "title": "Kill other X URLs",
       "isEnabled": true,
       "sourceURLPattern": {
@@ -341,16 +230,26 @@
         "value": "^https://(?:www\\.)?x\\.com/.*$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://x.com/resend",
         "https://x.com/search?q=hi"
       ],
-      "excludeURLPatterns": [],
+      "excludeURLPatterns": [
+        {
+          "type": "regularExpression",
+          "value": "^https://(?:www\\.)?x\\.com/[^/]+/status/\\d+"
+        },
+        {
+          "type": "regularExpression",
+          "value": "^https://(?:www\\.)?x\\.com/i/status/\\d+"
+        },
+        {
+          "type": "regularExpression",
+          "value": "^https://(?:www\\.)?x\\.com/i/web/status/\\d+"
+        }
+      ],
       "captureGroupProcesses": [],
-      "comments": "Profiles, search, and other non-status X URLs. Put this after the status rewrite.",
+      "comments": "Original type with status URL exclusions. Do not use DNR for this catch-all: if the tweet rule fails to match, DNR would send status links to example.com.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -361,7 +260,7 @@
     },
     {
       "kind": "Redirect",
-      "type": "declarativeNetRequestRedirect",
+      "type": "originalRedirect",
       "title": "Kill other Twitter URLs",
       "isEnabled": true,
       "sourceURLPattern": {
@@ -369,16 +268,26 @@
         "value": "^https://(?:www\\.)?twitter\\.com/.*$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://twitter.com/resend",
         "https://twitter.com/search?q=hi"
       ],
-      "excludeURLPatterns": [],
+      "excludeURLPatterns": [
+        {
+          "type": "regularExpression",
+          "value": "^https://(?:www\\.)?twitter\\.com/[^/]+/status/\\d+"
+        },
+        {
+          "type": "regularExpression",
+          "value": "^https://(?:www\\.)?twitter\\.com/i/status/\\d+"
+        },
+        {
+          "type": "regularExpression",
+          "value": "^https://(?:www\\.)?twitter\\.com/i/web/status/\\d+"
+        }
+      ],
       "captureGroupProcesses": [],
-      "comments": "Profiles, search, and other non-status X URLs. Put this after the status rewrite.",
+      "comments": "Original type with status URL exclusions. Do not use DNR for this catch-all: if the tweet rule fails to match, DNR would send status links to example.com.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -397,9 +306,6 @@
         "value": "^https://(?:www\\.)?twitterwebviewer\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://twitterwebviewer.com/",
         "https://www.twitterwebviewer.com/"
@@ -413,7 +319,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -425,9 +334,6 @@
         "value": "^https://(?:www\\.)?facebook\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.facebook.com/",
         "https://facebook.com/"
@@ -441,7 +347,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -453,9 +362,6 @@
         "value": "^https://(?:www\\.)?facebook\\.com/home/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.facebook.com/home"
       ],
@@ -468,7 +374,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -480,9 +389,6 @@
         "value": "^https://(?:www\\.)?m\\.facebook\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://m.facebook.com/"
       ],
@@ -495,7 +401,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -507,9 +416,6 @@
         "value": "^https://(?:www\\.)?m\\.facebook\\.com/home/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://m.facebook.com/home"
       ],
@@ -522,7 +428,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -534,9 +443,6 @@
         "value": "^https://(?:www\\.)?instagram\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.instagram.com/",
         "https://instagram.com/"
@@ -550,7 +456,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -562,9 +471,6 @@
         "value": "^https://(?:www\\.)?instagram\\.com/explore/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.instagram.com/explore/"
       ],
@@ -577,7 +483,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -589,9 +498,6 @@
         "value": "^https://(?:www\\.)?instagram\\.com/reels/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.instagram.com/reels/"
       ],
@@ -604,7 +510,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -616,9 +525,6 @@
         "value": "^https://(?:www\\.)?m\\.instagram\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://m.instagram.com/"
       ],
@@ -631,7 +537,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -643,9 +552,6 @@
         "value": "^https://(?:www\\.)?reddit\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.reddit.com/",
         "https://reddit.com"
@@ -659,7 +565,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -671,9 +580,6 @@
         "value": "^https://(?:www\\.)?reddit\\.com/r/all/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.reddit.com/r/all"
       ],
@@ -686,7 +592,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -698,9 +607,6 @@
         "value": "^https://(?:www\\.)?reddit\\.com/r/popular/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.reddit.com/r/popular"
       ],
@@ -713,7 +619,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -725,9 +634,6 @@
         "value": "^https://(?:www\\.)?safereddit\\.com/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://safereddit.com/"
       ],
@@ -740,7 +646,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -752,9 +661,6 @@
         "value": "^https://(?:www\\.)?safereddit\\.com/r/all/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://safereddit.com/r/all"
       ],
@@ -767,7 +673,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -779,9 +688,6 @@
         "value": "^https://(?:www\\.)?safereddit\\.com/r/popular/?([\\?#].*)?$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://safereddit.com/r/popular"
       ],
@@ -794,7 +700,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -806,9 +715,6 @@
         "value": "^https://(?:www\\.)?reddit\\.com/(.*)$"
       },
       "destinationURLPattern": "https://safereddit.com/$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.reddit.com/r/apple/comments/abc",
         "https://reddit.com/r/apple"
@@ -822,7 +728,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -834,9 +743,6 @@
         "value": "^https://(?:www\\.)?old\\.reddit\\.com/(.*)$"
       },
       "destinationURLPattern": "https://safereddit.com/$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://old.reddit.com/r/apple"
       ],
@@ -849,7 +755,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -861,9 +770,6 @@
         "value": "^https://(?:www\\.)?new\\.reddit\\.com/(.*)$"
       },
       "destinationURLPattern": "https://safereddit.com/$1",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://new.reddit.com/r/apple"
       ],
@@ -876,7 +782,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -888,9 +797,6 @@
         "value": "^https://(?:www\\.)?threads\\.net/.*$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.threads.net/",
         "https://threads.net/@someone"
@@ -904,7 +810,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     },
     {
       "kind": "Redirect",
@@ -916,9 +825,6 @@
         "value": "^https://(?:www\\.)?threads\\.com/.*$"
       },
       "destinationURLPattern": "https://example.com/",
-      "resourceTypes": [
-        "main_frame"
-      ],
       "exampleURLs": [
         "https://www.threads.com/",
         "https://threads.com/@someone"
@@ -932,7 +838,10 @@
       "targetBrowserOptions": {
         "browsers": [],
         "selectionType": "including"
-      }
+      },
+      "resourceTypes": [
+        "main_frame"
+      ]
     }
   ]
 }
