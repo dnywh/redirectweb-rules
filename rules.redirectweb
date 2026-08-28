@@ -172,21 +172,31 @@
     {
       "kind": "Redirect",
       "type": "originalRedirect",
-      "title": "X status to Twitter Web Viewer",
+      "title": "X user status to Twitter Web Viewer",
       "isEnabled": true,
       "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?x\\.com/(?:[^/]+/status/|i/status/|i/web/status/)(\\d+)(?:[\\?#].*)?$"
+        "type": "wildcard",
+        "value": "https://x.com/*/status/*"
       },
-      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$2",
       "exampleURLs": [
-        "https://x.com/resend/status/2091897900800635319?s=20",
-        "https://www.x.com/user/status/123",
-        "https://x.com/i/status/123"
+        "https://x.com/resend/status/2091897900800635319?s=20"
       ],
       "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "Original type on purpose. Safari DNR is unreliable for these redirects and rejects `|` in regex (FB13251357). You may see a brief flash of x.com.",
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 2,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -198,20 +208,247 @@
     {
       "kind": "Redirect",
       "type": "originalRedirect",
-      "title": "Twitter status to Twitter Web Viewer",
+      "title": "X user status (www) to Twitter Web Viewer",
       "isEnabled": true,
       "sourceURLPattern": {
-        "type": "regularExpression",
-        "value": "^https://(?:www\\.)?twitter\\.com/(?:[^/]+/status/|i/status/|i/web/status/)(\\d+)(?:[\\?#].*)?$"
+        "type": "wildcard",
+        "value": "https://www.x.com/*/status/*"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$2",
+      "exampleURLs": [
+        "https://www.x.com/resend/status/2091897900800635319?s=20"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 2,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "originalRedirect",
+      "title": "X i/status to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "wildcard",
+        "value": "https://x.com/i/status/*"
       },
       "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
       "exampleURLs": [
-        "https://twitter.com/resend/status/2091897900800635319?s=20",
-        "https://www.twitter.com/user/status/123"
+        "https://x.com/i/status/123?s=20"
       ],
       "excludeURLPatterns": [],
-      "captureGroupProcesses": [],
-      "comments": "Original type on purpose. Safari DNR is unreliable for these redirects and rejects `|` in regex (FB13251357). You may see a brief flash of x.com.",
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 1,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "originalRedirect",
+      "title": "X i/web/status to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "wildcard",
+        "value": "https://x.com/i/web/status/*"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
+      "exampleURLs": [
+        "https://x.com/i/web/status/123"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 1,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "originalRedirect",
+      "title": "Twitter user status to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "wildcard",
+        "value": "https://twitter.com/*/status/*"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$2",
+      "exampleURLs": [
+        "https://twitter.com/resend/status/2091897900800635319?s=20"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 2,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "originalRedirect",
+      "title": "Twitter user status (www) to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "wildcard",
+        "value": "https://www.twitter.com/*/status/*"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$2",
+      "exampleURLs": [
+        "https://www.twitter.com/resend/status/2091897900800635319?s=20"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 2,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "originalRedirect",
+      "title": "Twitter i/status to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "wildcard",
+        "value": "https://twitter.com/i/status/*"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
+      "exampleURLs": [
+        "https://twitter.com/i/status/123?s=20"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 1,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
+      "commentsOptions": {
+        "format": "markdown"
+      },
+      "targetBrowserOptions": {
+        "browsers": [],
+        "selectionType": "including"
+      }
+    },
+    {
+      "kind": "Redirect",
+      "type": "originalRedirect",
+      "title": "Twitter i/web/status to Twitter Web Viewer",
+      "isEnabled": true,
+      "sourceURLPattern": {
+        "type": "wildcard",
+        "value": "https://twitter.com/i/web/status/*"
+      },
+      "destinationURLPattern": "https://twitterwebviewer.com/?tweet=$1",
+      "exampleURLs": [
+        "https://twitter.com/i/web/status/123"
+      ],
+      "excludeURLPatterns": [],
+      "captureGroupProcesses": [
+        {
+          "groupIndex": 1,
+          "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {
+              "type": "regularExpression",
+              "value": "\\?.*"
+            },
+            "replacement": ""
+          }
+        }
+      ],
+      "comments": "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. Put these above Kill other URLs.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -237,19 +474,43 @@
       "excludeURLPatterns": [
         {
           "type": "regularExpression",
-          "value": "^https://(?:www\\.)?x\\.com/[^/]+/status/\\d+"
+          "value": "^https://(?:www\\.)?x\\.com/[^/]+/status/\\d+(?:[\\?#].*)?$"
         },
         {
           "type": "regularExpression",
-          "value": "^https://(?:www\\.)?x\\.com/i/status/\\d+"
+          "value": "^https://(?:www\\.)?x\\.com/i/status/\\d+(?:[\\?#].*)?$"
         },
         {
           "type": "regularExpression",
-          "value": "^https://(?:www\\.)?x\\.com/i/web/status/\\d+"
+          "value": "^https://(?:www\\.)?x\\.com/i/web/status/\\d+(?:[\\?#].*)?$"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://x.com/*/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://www.x.com/*/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://x.com/i/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://www.x.com/i/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://x.com/i/web/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://www.x.com/i/web/status/*"
         }
       ],
       "captureGroupProcesses": [],
-      "comments": "Original type with status URL exclusions. Do not use DNR for this catch-all: if the tweet rule fails to match, DNR would send status links to example.com.",
+      "comments": "Excludes must allow `?s=20` on status URLs. Without that, this catch-all was sending tweet links to example.com.",
       "commentsOptions": {
         "format": "markdown"
       },
@@ -275,19 +536,43 @@
       "excludeURLPatterns": [
         {
           "type": "regularExpression",
-          "value": "^https://(?:www\\.)?twitter\\.com/[^/]+/status/\\d+"
+          "value": "^https://(?:www\\.)?twitter\\.com/[^/]+/status/\\d+(?:[\\?#].*)?$"
         },
         {
           "type": "regularExpression",
-          "value": "^https://(?:www\\.)?twitter\\.com/i/status/\\d+"
+          "value": "^https://(?:www\\.)?twitter\\.com/i/status/\\d+(?:[\\?#].*)?$"
         },
         {
           "type": "regularExpression",
-          "value": "^https://(?:www\\.)?twitter\\.com/i/web/status/\\d+"
+          "value": "^https://(?:www\\.)?twitter\\.com/i/web/status/\\d+(?:[\\?#].*)?$"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://twitter.com/*/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://www.twitter.com/*/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://twitter.com/i/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://www.twitter.com/i/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://twitter.com/i/web/status/*"
+        },
+        {
+          "type": "wildcard",
+          "value": "https://www.twitter.com/i/web/status/*"
         }
       ],
       "captureGroupProcesses": [],
-      "comments": "Original type with status URL exclusions. Do not use DNR for this catch-all: if the tweet rule fails to match, DNR would send status links to example.com.",
+      "comments": "Excludes must allow `?s=20` on status URLs. Without that, this catch-all was sending tweet links to example.com.",
       "commentsOptions": {
         "format": "markdown"
       },

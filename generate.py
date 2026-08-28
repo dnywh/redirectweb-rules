@@ -18,23 +18,28 @@ def esc(host: str) -> str:
 def rule(
     *,
     title: str,
-    pattern: str,
     dest: str,
     examples: list[str],
     comments: str = "",
     rule_type: str = "declarativeNetRequestRedirect",
+    pattern: str | None = None,
+    pattern_type: str = "regularExpression",
     exclude_patterns: list[dict[str, str]] | None = None,
+    capture_group_processes: list[dict] | None = None,
 ) -> dict:
+    if pattern is None:
+        raise ValueError("pattern is required")
+
     payload: dict = {
         "kind": "Redirect",
         "type": rule_type,
         "title": title,
         "isEnabled": True,
-        "sourceURLPattern": {"type": "regularExpression", "value": pattern},
+        "sourceURLPattern": {"type": pattern_type, "value": pattern},
         "destinationURLPattern": dest,
         "exampleURLs": examples,
         "excludeURLPatterns": exclude_patterns or [],
-        "captureGroupProcesses": [],
+        "captureGroupProcesses": capture_group_processes or [],
         "comments": comments,
         "commentsOptions": {"format": "markdown"},
         "targetBrowserOptions": {"browsers": [], "selectionType": "including"},
@@ -44,20 +49,37 @@ def rule(
     return payload
 
 
+def strip_query_suffix(group_index: int) -> dict:
+    return {
+        "groupIndex": group_index,
+        "process": {
+            "id": "replaceOccurrences",
+            "matchingPattern": {"type": "regularExpression", "value": "\\?.*"},
+            "replacement": "",
+        },
+    }
+
+
 def status_exclude_patterns(host: str) -> list[dict[str, str]]:
     return [
         {
             "type": "regularExpression",
-            "value": rf"^https://(?:www\.)?{esc(host)}/[^/]+/status/\d+",
+            "value": rf"^https://(?:www\.)?{esc(host)}/[^/]+/status/\d+(?:[\?#].*)?$",
         },
         {
             "type": "regularExpression",
-            "value": rf"^https://(?:www\.)?{esc(host)}/i/status/\d+",
+            "value": rf"^https://(?:www\.)?{esc(host)}/i/status/\d+(?:[\?#].*)?$",
         },
         {
             "type": "regularExpression",
-            "value": rf"^https://(?:www\.)?{esc(host)}/i/web/status/\d+",
+            "value": rf"^https://(?:www\.)?{esc(host)}/i/web/status/\d+(?:[\?#].*)?$",
         },
+        {"type": "wildcard", "value": f"https://{host}/*/status/*"},
+        {"type": "wildcard", "value": f"https://www.{host}/*/status/*"},
+        {"type": "wildcard", "value": f"https://{host}/i/status/*"},
+        {"type": "wildcard", "value": f"https://www.{host}/i/status/*"},
+        {"type": "wildcard", "value": f"https://{host}/i/web/status/*"},
+        {"type": "wildcard", "value": f"https://www.{host}/i/web/status/*"},
     ]
 
 
@@ -97,21 +119,55 @@ def rewrite(label: str, host: str, dest_host: str, examples: list[str]) -> dict:
     )
 
 
-def tweet_to_viewer(label: str, host: str, examples: list[str]) -> dict:
-    return rule(
-        title=f"{label} status to Twitter Web Viewer",
-        pattern=(
-            rf"^https://(?:www\.)?{esc(host)}/"
-            rf"(?:[^/]+/status/|i/status/|i/web/status/)(\d+)(?:[\?#].*)?$"
-        ),
-        dest="https://twitterwebviewer.com/?tweet=$1",
-        examples=examples,
-        rule_type="originalRedirect",
-        comments=(
-            "Original type on purpose. Safari DNR is unreliable for these redirects "
-            "and rejects `|` in regex (FB13251357). You may see a brief flash of x.com."
-        ),
+def tweet_to_viewer_rules(label: str, host: str) -> list[dict]:
+    """Wildcard rules: RedirectWeb regex Examples failed on status URLs with ?s=20."""
+    status_example = (
+        "https://x.com/resend/status/2091897900800635319?s=20"
+        if host == "x.com"
+        else "https://twitter.com/resend/status/2091897900800635319?s=20"
     )
+    shapes = [
+        (
+            f"{label} user status",
+            f"https://{host}/*/status/*",
+            2,
+            status_example,
+        ),
+        (
+            f"{label} user status (www)",
+            f"https://www.{host}/*/status/*",
+            2,
+            f"https://www.{host}/resend/status/2091897900800635319?s=20",
+        ),
+        (
+            f"{label} i/status",
+            f"https://{host}/i/status/*",
+            1,
+            f"https://{host}/i/status/123?s=20",
+        ),
+        (
+            f"{label} i/web/status",
+            f"https://{host}/i/web/status/*",
+            1,
+            f"https://{host}/i/web/status/123",
+        ),
+    ]
+    return [
+        rule(
+            title=f"{title} to Twitter Web Viewer",
+            pattern=pattern,
+            pattern_type="wildcard",
+            dest="https://twitterwebviewer.com/?tweet=$" + str(group_index),
+            examples=[example],
+            rule_type="originalRedirect",
+            capture_group_processes=[strip_query_suffix(group_index)],
+            comments=(
+                "Wildcard + Original type. Strips `?s=20` style query strings from the tweet id. "
+                "Put these above Kill other URLs."
+            ),
+        )
+        for title, pattern, group_index, example in shapes
+    ]
 
 
 def kill_remaining(label: str, host: str, examples: list[str]) -> dict:
@@ -123,8 +179,8 @@ def kill_remaining(label: str, host: str, examples: list[str]) -> dict:
         rule_type="originalRedirect",
         exclude_patterns=status_exclude_patterns(host),
         comments=(
-            "Original type with status URL exclusions. Do not use DNR for this catch-all: "
-            "if the tweet rule fails to match, DNR would send status links to example.com."
+            "Excludes must allow `?s=20` on status URLs. Without that, this catch-all "
+            "was sending tweet links to example.com."
         ),
     )
 
@@ -147,23 +203,8 @@ def main() -> None:
         kill_path("Twitter", "twitter.com", "home", ["https://twitter.com/home"]),
         kill_path("X", "x.com", "explore", ["https://x.com/explore"]),
         kill_path("Twitter", "twitter.com", "explore", ["https://twitter.com/explore"]),
-        tweet_to_viewer(
-            "X",
-            "x.com",
-            [
-                "https://x.com/resend/status/2091897900800635319?s=20",
-                "https://www.x.com/user/status/123",
-                "https://x.com/i/status/123",
-            ],
-        ),
-        tweet_to_viewer(
-            "Twitter",
-            "twitter.com",
-            [
-                "https://twitter.com/resend/status/2091897900800635319?s=20",
-                "https://www.twitter.com/user/status/123",
-            ],
-        ),
+        *tweet_to_viewer_rules("X", "x.com"),
+        *tweet_to_viewer_rules("Twitter", "twitter.com"),
         kill_remaining("X", "x.com", ["https://x.com/resend", "https://x.com/search?q=hi"]),
         kill_remaining(
             "Twitter",

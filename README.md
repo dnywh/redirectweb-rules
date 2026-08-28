@@ -56,8 +56,8 @@ Safari DNR rejects `|` in regex. Tweet rules use Original type instead. These st
 ## What the rules do
 
 1. **Kill roots and feeds** on X and Twitter (`/`, `/home`, `/explore`).
-2. **Rewrite status URLs** on X and Twitter to Twitter Web Viewer (Original type).
-3. **Kill other X/Twitter URLs** (Original, with status URLs excluded).
+2. **Rewrite status URLs** on X and Twitter to Twitter Web Viewer (Original + wildcard).
+3. **Kill other X/Twitter URLs** (Original, with status URL exclusions that include `?s=20`).
 4. **Kill Twitter Web Viewer root** so you cannot open the viewer homepage and scroll.
 5. **Facebook and Instagram:** kill homepage and feed tabs only. Direct links to posts, reels, groups, and so on still load.
 6. **Reddit** unchanged: kill roots/feeds, rewrite deep links to Safereddit.
